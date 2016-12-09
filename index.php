@@ -12,7 +12,7 @@ session_start();
 require(".htsecretpasswords.inc"); // THis is not committed to github!!
 if (!isset($recaptcha_public, $recaptcha_secret,
     $ticketing_user, $ticketing_password,
-    $default_queue, $default_owner, $default_responsible))
+    $default_queue, $default_owner, $default_responsible, $default_lang))
 {
     echo("<div><strong>Helpdesk form has not been set up!</strong></div>");
     exit(1);
@@ -26,15 +26,17 @@ if (!isset($recaptcha_public, $recaptcha_secret,
 function req_param(&$param, $default){
     return isset($param) ? $param : $default;
 }
-$lang = req_param($_REQUEST['lang'], 'de');
-$QueueID = req_param($_REQUEST['QueueID'], '1');
-$OwnerID = req_param($_REQUEST['OwnerID'], '1');
-$ResponsibleID = req_param($_REQUEST['ResponsibleID'], '1');
+$lang = req_param($_REQUEST['lang'], $default_lang);
+$QueueID = req_param($_REQUEST['QueueID'], $default_queue);
+$OwnerID = req_param($_REQUEST['OwnerID'],  $default_owner);
+$ResponsibleID = req_param($_REQUEST['ResponsibleID'], $default_responsible);
 
 $debugging = true;
 if ($debugging)
 {
-    echo("<div><strong>This page does not send messages to CLARIN-D helpdesk." .
+    echo("<div><strong>This page does not send messages to CLARIN-D helpdesk" .
+        "(or sometimes sends messages to spam queue, but they will not be " .
+        "recorded)" .
         " It is only used for testing purposes.</strong></div>");
 }
 // lables
@@ -160,7 +162,9 @@ elseif(isset($_POST['g-recaptcha-response'])){
             );
             echo("</pre>");
         }
-        else {
+        if ($debugging) {
+            $QueueID = "3";
+        }
         // initiate a new SOAP Client based on
         $WSDL = 'GenericTicketConnector.wsdl';
         $SOAPCl = new SoapClient($WSDL);
@@ -204,7 +208,6 @@ elseif(isset($_POST['g-recaptcha-response'])){
                     );
 
         // Success!
-        }
         echo $lable[$lang]["success"];
     }
       // else catcha error
