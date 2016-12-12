@@ -1,6 +1,8 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Support</title>
+    <title>CLARIN-D helpdesk form</title>
+    <meta charset="UTF-8">
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <link rel="stylesheet" href="mail_css.css">
     <link rel="stylesheet" href="bootstrap.min.css">
@@ -66,11 +68,18 @@ $text = array (
     "de" => "<div>Bitte z&ouml;gern Sie nicht, sich bei allen Fragen direkt an "
     . "den <b>CLARIN-D Helpdesk</b> zu wenden. </div><div>&nbsp;</div>" .
     "<div>Ihre Anfrage wird dann umgehend an eine/-n Ansprechparter/-in in " .
-    "CLARIN-D Weitergeleitet. </div><div>&nbsp;</div>",
+    "CLARIN-D Weitergeleitet. </div><div>&nbsp;</div>" .
+    "<div>Sie erhalten sofort eine Bestätigung Ihrer Anfrage per E-Mail. " .
+    "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte eine E-Mail " .
+    "an <a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>.",
     "en" => "<div>Please do not hesitate to contact the " .
     "<b>CLARIN-D Helpdesk</b> with any questions. </div>" .
     "<div>&nbsp;</div><div>Your inquiry will immediately be forwarded to a " .
-    "CLARIN-D expert. </div><div>&nbsp;</div>"
+    "CLARIN-D expert. </div><div>&nbsp;</div>" .
+    "<div>You will receive a confirmation email immediately " .
+    "after submitting your inquiry. In case you do not receive a " .
+    "confirmation, please send us an email at " .
+    "<a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>."
 );
 // error message that for some reason does not appear
 $error = array (
@@ -156,7 +165,7 @@ elseif(isset($_POST['g-recaptcha-response'])){
                         'From' => $_POST['name'].'<'.$_POST['mail'].'>',
                         'Subject' => $_POST['sbj'],
                         'Body' => $_POST['msg'],
-                        'ContentType' => 'text/plain; charset=ISO-8859-1'
+                        'ContentType' => 'text/plain; charset=UTF-8'
                     ),
                 )
             );
@@ -186,7 +195,7 @@ elseif(isset($_POST['g-recaptcha-response'])){
                         'From' => $_POST['name'].'<'.$_POST['mail'].'>',
                         'Subject' => $_POST['sbj'],
                         'Body' => $_POST['msg'],
-                        'ContentType' => 'text/plain; charset=ISO-8859-1'
+                        'ContentType' => 'text/plain; charset=UTF-8'
                     ),
                 )
                 );
