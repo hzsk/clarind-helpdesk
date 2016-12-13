@@ -146,6 +146,9 @@ elseif(isset($_POST['g-recaptcha-response'])){
     // and proved successful ...
     if(json_decode($response, true)['success'] == 1) {
         if ($debugging) {
+            $QueueID = "3";
+            $ResponsibleID = "12";
+            $OwnerID = "12";
             echo("<div>Would be creating a ticket here:</div>");
             echo("<pre>");
             var_dump(
@@ -165,14 +168,11 @@ elseif(isset($_POST['g-recaptcha-response'])){
                         'From' => $_POST['name'].'<'.$_POST['mail'].'>',
                         'Subject' => $_POST['sbj'],
                         'Body' => $_POST['msg'],
-                        'ContentType' => 'text/plain; charset=UTF-8'
+                        'ContentType' => 'text/plain; charset=ISO-8859-1'
                     ),
                 )
             );
             echo("</pre>");
-        }
-        if ($debugging) {
-            $QueueID = "3";
         }
         // initiate a new SOAP Client based on
         $WSDL = 'GenericTicketConnector.wsdl';
@@ -195,29 +195,56 @@ elseif(isset($_POST['g-recaptcha-response'])){
                         'From' => $_POST['name'].'<'.$_POST['mail'].'>',
                         'Subject' => $_POST['sbj'],
                         'Body' => $_POST['msg'],
-                        'ContentType' => 'text/plain; charset=UTF-8'
+                        'ContentType' => 'text/plain; charset=ISO-8859-1'
                     ),
                 )
-                );
+            );
+        if ($debugging) {
+            echo("<pre>");
+            var_dump($create);
+            echo( "</pre>");
+        }
+        if (!$create->TicketID || $create->Error) {
+            echo("<div>Ticket creation error! " .
+                "Please contact helpdesk directly via email at " .
+                "<a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>" .
+                "</div>");
+        }
         /* Ok ... humm ... what did I do here?
          * Ah! OTRS needs the user for who the ticket is created to login. of course
          * people who send the form are not known For that reason we use the user
          * Webform (see above) changing the parameters of the ticket by the way does
          * not seem to work
          */
-        $modify = $SOAPCl->TicketUpdate(
+        else {
+            $modify = $SOAPCl->TicketUpdate(
                     array('CustomerUserLogin' => $ticketing_user,
                         'Password' => $ticketing_password,
-                        'TicektID' => $create->TicketID,
+                        'TicketID' => $create->TicketID,
                         'Ticket' => array(
                             'CustomerUser' => $_POST['name'],
                             'CustomerID' => $_POST['mail']
                         ),
                        )
                     );
-
-        // Success!
-        echo $lable[$lang]["success"];
+            if ($debugging) {
+                echo("<pre>");
+                var_dump($modify);
+                echo("</pre>");
+            }
+            if ($modify->Error) {
+                if ($debugging) {
+                    echo("<div>Ticket updating error! " .
+                        "This just means it wasn’t reassigned to a new customer"
+                        . ". Nothing we can fix yet.</div>");
+                } else {
+                    // Success!
+                    echo $lable[$lang]["success"];
+                }
+            } else {
+                echo $lable[$lang]["success"];
+            }
+        }
     }
       // else catcha error
     else {
