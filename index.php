@@ -207,8 +207,12 @@ elseif(isset($_POST['g-recaptcha-response'])){
         if (!$create->TicketID || $create->Error) {
             echo("<div>Ticket creation error! " .
                 "Please contact helpdesk directly via email at " .
-                "<a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>" .
-                "</div>");
+                "<a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>:"
+                . "</div>\n<pre>");
+            echo("To: Clarin-D Helpdesk &lt;support@clarin-d.d&gt;\n");
+            echo("Subject: " . $_POST['sbj'] . "\n");
+            echo("\n\n" . $_POST['msg'] . "\n");
+            echo("</pre>");
         }
         /* Ok ... humm ... what did I do here?
          * Ah! OTRS needs the user for who the ticket is created to login. of course
