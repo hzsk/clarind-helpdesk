@@ -1,6 +1,8 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Support</title>
+    <title>CLARIN-D helpdesk form</title>
+    <meta charset="UTF-8">
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <link rel="stylesheet" href="mail_css.css">
     <link rel="stylesheet" href="bootstrap.min.css">
@@ -10,6 +12,14 @@
 <?php
 session_start();
 require(".htsecretpasswords.inc"); // THis is not committed to github!!
+if (!isset($recaptcha_public, $recaptcha_secret,
+    $ticketing_user, $ticketing_password,
+    $default_queue, $default_owner, $default_responsible, $default_lang))
+{
+    echo("<div><strong>Helpdesk form has not been set up!</strong></div>");
+    exit(1);
+}
+
 /* request parameters sent via GET (lang QueuID as well es OwnerID and
  * ResponsibleID)
  * If you wonder about ID's just click on the respective users and queues in the
@@ -18,10 +28,19 @@ require(".htsecretpasswords.inc"); // THis is not committed to github!!
 function req_param(&$param, $default){
     return isset($param) ? $param : $default;
 }
-$lang = req_param($_REQUEST['lang'], 'de');
-$QueueID = req_param($_REQUEST['QueueID'], '1');
-$OwnerID = req_param($_REQUEST['OwnerID'], '1');
-$ResponsibleID = req_param($_REQUEST['ResponsibleID'], '1');
+$lang = req_param($_REQUEST['lang'], $default_lang);
+$QueueID = req_param($_REQUEST['QueueID'], $default_queue);
+$OwnerID = req_param($_REQUEST['OwnerID'],  $default_owner);
+$ResponsibleID = req_param($_REQUEST['ResponsibleID'], $default_responsible);
+
+$debugging = true;
+if ($debugging)
+{
+    echo("<div><strong>This page does not send messages to CLARIN-D helpdesk" .
+        "(or sometimes sends messages to spam queue, but they will not be " .
+        "recorded)" .
+        " It is only used for testing purposes.</strong></div>");
+}
 // lables
 $lable = array (
 "de" => array ("name" => "Vor- und Zuname",
@@ -49,11 +68,18 @@ $text = array (
     "de" => "<div>Bitte z&ouml;gern Sie nicht, sich bei allen Fragen direkt an "
     . "den <b>CLARIN-D Helpdesk</b> zu wenden. </div><div>&nbsp;</div>" .
     "<div>Ihre Anfrage wird dann umgehend an eine/-n Ansprechparter/-in in " .
-    "CLARIN-D Weitergeleitet. </div><div>&nbsp;</div>",
+    "CLARIN-D Weitergeleitet. </div><div>&nbsp;</div>" .
+    "<div>Sie erhalten sofort eine Bestätigung Ihrer Anfrage per E-Mail. " .
+    "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte eine E-Mail " .
+    "an <a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>.",
     "en" => "<div>Please do not hesitate to contact the " .
     "<b>CLARIN-D Helpdesk</b> with any questions. </div>" .
-    "<div>&nbsp;</div><div>Your inquiry will immediately be forwarded to a "
-    "CLARIN-D expert. </div><div>&nbsp;</div>"
+    "<div>&nbsp;</div><div>Your inquiry will immediately be forwarded to a " .
+    "CLARIN-D expert. </div><div>&nbsp;</div>" .
+    "<div>You will receive a confirmation email immediately " .
+    "after submitting your inquiry. In case you do not receive a " .
+    "confirmation, please send us an email at " .
+    "<a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>."
 );
 // error message that for some reason does not appear
 $error = array (
@@ -69,7 +95,8 @@ $error = array (
 // http://www.imavex.com/pfbc3.x-php5/
 use PFBC\Form;
 use PFBC\Element;
-include("PFBC/Form.php");
+
+require("PFBC/Form.php");
 // if captcha is not sent
 if(!isset($_POST['g-recaptcha-response'])){
     echo $text[$lang];
@@ -118,12 +145,41 @@ elseif(isset($_POST['g-recaptcha-response'])){
         $_SERVER['REMOTE_ADDR']);
     // and proved successful ...
     if(json_decode($response, true)['success'] == 1) {
+        if ($debugging) {
+            $QueueID = "3";
+            $ResponsibleID = "12";
+            $OwnerID = "12";
+            echo("<div>Would be creating a ticket here:</div>");
+            echo("<pre>");
+            var_dump(
+                array('CustomerUserLogin' => 'FakeLogin',
+                    'Password' => "this is not the real password!",
+                    'Ticket' => array(
+                        'Title' => $_POST['sbj'],
+                        'QueueID' => $QueueID,
+                        'TypeID' => 1,
+                        'StateID' => 1,
+                        'PriorityID' => 3,
+                        'OwnerID' => $OwnerID,
+                        'ResponsibleID' => $ResponsibleID,
+                        'CustomerUser' => 'FakeUser'
+                    ),
+                    'Article' => array(
+                        'From' => $_POST['name'].'<'.$_POST['mail'].'>',
+                        'Subject' => $_POST['sbj'],
+                        'Body' => $_POST['msg'],
+                        'ContentType' => 'text/plain; charset=ISO-8859-1'
+                    ),
+                )
+            );
+            echo("</pre>");
+        }
         // initiate a new SOAP Client based on
         $WSDL = 'GenericTicketConnector.wsdl';
         $SOAPCl = new SoapClient($WSDL);
         // Create Ticket
         $create = $SOAPCl->TicketCreate(
-                array('CustomerUserLogin' => 'Webform',
+                array('CustomerUserLogin' => $ticketing_user,
                     'Password' => $ticketing_password,
                     'Ticket' => array(
                         'Title' => $_POST['sbj'],
@@ -133,7 +189,7 @@ elseif(isset($_POST['g-recaptcha-response'])){
                         'PriorityID' => 3,
                         'OwnerID' => $OwnerID,
                         'ResponsibleID' => $ResponsibleID,
-                        'CustomerUser' => 'Webform'
+                        'CustomerUser' => $ticketing_user
                     ),
                     'Article' => array(
                         'From' => $_POST['name'].'<'.$_POST['mail'].'>',
@@ -142,26 +198,57 @@ elseif(isset($_POST['g-recaptcha-response'])){
                         'ContentType' => 'text/plain; charset=ISO-8859-1'
                     ),
                 )
-                );
+            );
+        if ($debugging) {
+            echo("<pre>");
+            var_dump($create);
+            echo( "</pre>");
+        }
+        if (!$create->TicketID || $create->Error) {
+            echo("<div>Ticket creation error! " .
+                "Please contact helpdesk directly via email at " .
+                "<a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>:"
+                . "</div>\n<pre>");
+            echo("To: Clarin-D Helpdesk &lt;support@clarin-d.d&gt;\n");
+            echo("Subject: " . $_POST['sbj'] . "\n");
+            echo("\n\n" . $_POST['msg'] . "\n");
+            echo("</pre>");
+        }
         /* Ok ... humm ... what did I do here?
          * Ah! OTRS needs the user for who the ticket is created to login. of course
          * people who send the form are not known For that reason we use the user
          * Webform (see above) changing the parameters of the ticket by the way does
          * not seem to work
          */
-        $modify = $SOAPCl->TicketUpdate(
-                    array('CustomerUserLogin' => 'Webform',
+        else {
+            $modify = $SOAPCl->TicketUpdate(
+                    array('CustomerUserLogin' => $ticketing_user,
                         'Password' => $ticketing_password,
-                        'TicektID' => $create->TicketID,
+                        'TicketID' => $create->TicketID,
                         'Ticket' => array(
                             'CustomerUser' => $_POST['name'],
                             'CustomerID' => $_POST['mail']
                         ),
                        )
                     );
-
-        // Success!
-        echo $lable[$lang]["success"];
+            if ($debugging) {
+                echo("<pre>");
+                var_dump($modify);
+                echo("</pre>");
+            }
+            if ($modify->Error) {
+                if ($debugging) {
+                    echo("<div>Ticket updating error! " .
+                        "This just means it wasn’t reassigned to a new customer"
+                        . ". Nothing we can fix yet.</div>");
+                } else {
+                    // Success!
+                    echo $lable[$lang]["success"];
+                }
+            } else {
+                echo $lable[$lang]["success"];
+            }
+        }
     }
       // else catcha error
     else {
