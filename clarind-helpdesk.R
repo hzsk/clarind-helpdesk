@@ -24,4 +24,4 @@ points(cumsum(merged), type = types[2], pch = pchs[2], col = colours[2])
 points(seq(1, xmax), newnew, type = types[7], col = colours[7], pch = pchs[7])
 points(seq(1, xmax), open, type = types[1], col = colours[1], pch = pchs[1])
 legend(1, ymax, legends, col = colours, pch = pchs)
-
+summary(t)
