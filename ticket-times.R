@@ -1,4 +1,4 @@
-t <- read.table('clarind-helpdesk-times.tsv', sep = '\t', header = TRUE,
+t <- read.table('ticket-times.tsv', sep = '\t', header = TRUE,
                 row.names = 1)
 remove_outliers <- function(x, na.rm = TRUE, ...) {
   qnt <- quantile(x, probs=c(.1, .9), na.rm = na.rm, ...)
