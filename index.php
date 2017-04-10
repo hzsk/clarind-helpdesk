@@ -1,3 +1,10 @@
+<?php
+session_start();
+require(".htsecretpasswords.inc"); // THis is not committed to github!
+function req_param(&$param, $default){
+    return isset($param) ? $param : $default;
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,10 +15,7 @@
     <link rel="stylesheet" href="bootstrap.min.css">
 </head>
 <body>
-
 <?php
-session_start();
-require(".htsecretpasswords.inc"); // THis is not committed to github!!
 if (!isset($recaptcha_public, $recaptcha_secret,
     $ticketing_user, $ticketing_password,
     $default_queue, $default_owner, $default_responsible, $default_lang))
@@ -25,11 +29,36 @@ if (!isset($recaptcha_public, $recaptcha_secret,
  * If you wonder about ID's just click on the respective users and queues in the
  * OTRS backend
  */
-function req_param(&$param, $default){
-    return isset($param) ? $param : $default;
+$QueueID = $default_queue; // extra-careful
+if (isset($_REQUEST['queue']) && !isset($_REQUEST['QueueID'])) {
+    // I bet I could pull this from OTRS too... the previous impl. didn't work
+    // so I just hard-coded stuff
+    $qmap = array(
+        "Aggregator" => "41",
+        "Junk" => "3",
+        "HZSK" => "5",
+        "HZSK::corpora" => "9",
+        "BAS" => "19",
+        "BBAW" => "20",
+        "ETue" => "21",
+        "IDS" => "18",
+        "IMS" => "22",
+        "UdS" => "24",
+        "VLO" => "34"
+    );
+    if (array_key_exists($_REQUEST['queue'], $qmap)) {
+        $QueueID = $qmap[$_REQUEST['queue']];
+    }
+    else {
+        echo("<div>Helpdesk form has not been setup to send messages for " .
+            $_REQUEST['queue'] . ", this message will be send to generic queue"
+            . " for sorting.</div>");
+    }
+}
+else {
+    $QueueID = req_param($_REQUEST['QueueID'], $default_queue);
 }
 $lang = req_param($_REQUEST['lang'], $default_lang);
-$QueueID = req_param($_REQUEST['QueueID'], $default_queue);
 $OwnerID = req_param($_REQUEST['OwnerID'],  $default_owner);
 $ResponsibleID = req_param($_REQUEST['ResponsibleID'], $default_responsible);
 
