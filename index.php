@@ -97,7 +97,7 @@ $text = array (
     "de" => "<div>Bitte z&ouml;gern Sie nicht, sich bei allen Fragen direkt an "
     . "den <b>CLARIN-D Helpdesk</b> zu wenden. </div><div>&nbsp;</div>" .
     "<div>Ihre Anfrage wird dann umgehend an eine/-n Ansprechparter/-in in " .
-    "CLARIN-D Weitergeleitet. </div><div>&nbsp;</div>" .
+    "CLARIN-D weitergeleitet. </div><div>&nbsp;</div>" .
     "<div>Sie erhalten sofort eine Bestätigung Ihrer Anfrage per E-Mail. " .
     "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte eine E-Mail " .
     "an <a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>.",
