@@ -1,6 +1,6 @@
 <?php
 session_start();
-require(".htsecretpasswords.inc"); // THis is not committed to github!
+require("/etc/clarin-helpdesk.conf"); // THis is not committed to github!
 function req_param(&$param, $default){
     return isset($param) ? $param : $default;
 }
