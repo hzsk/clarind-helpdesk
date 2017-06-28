@@ -110,6 +110,27 @@ $text = array (
     "confirmation, please send us an email at " .
     "<a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>."
 );
+if ($QueueID == 40) {
+    $text['de'] =
+        "<div>Bitte zögern Sie nicht, sich bei allen Fragen direkt an den CATMA"
+        . "Helpdesk zu wenden.</div>" .
+        "<div>Ihre Anfrage wird dann umgehend an eine/-n Ansprechparter/-in " .
+        "bei CATMA weitergeleitet.</div>" .
+        "<div>Sie erhalten sofort eine Bestätigung Ihrer Anfrage per E-Mail. " .
+        "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte " .
+        "eine E-Mail an " .
+        "<a href='mailto:support@catma.de'>support@catma.de</a>.";
+    $text['en'] =
+        "<div>Please do not hesitate to contact the CATMA Helpdesk with " .
+        "any questions.</div>" .
+        "<div>Your inquiry will immediately be forwarded to " .
+        "a CATMA expert.</div>" .
+        "<div>You will receive a confirmation email immediately " .
+        "after submitting your inquiry. " .
+        "In case you do not receive a confirmation, please send us an " .
+        "email at <a href='mailto:support@catma.de'>support@catma.de.</a>" .
+        "</div>";
+}
 // error message that for some reason does not appear
 $error = array (
     "de" => "<div>Ein Fehler bei der &Uuml;bermittlung des Formulars ist " .
