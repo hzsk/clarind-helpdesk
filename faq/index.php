@@ -55,7 +55,7 @@
 
 
 <?php
-$debugging = false;
+$debugging = true;
 if ($debugging) {
     error_reporting(-1);
     ini_set('display_errors', TRUE);
@@ -73,13 +73,27 @@ function get_articles($catID, $SOAPCl)
     $SOAPArtIDs = $SOAPCl -> PublicFAQSearch(['CategoryIDs'  =>  $catID]);
     // Get Items
     if (property_exists($SOAPArtIDs, 'ID')) {
-        $FAQItems = $SOAPCl -> PublicFAQGet(['ItemID'  =>  implode(
-            ',', $SOAPArtIDs -> ID)]);
+        $idlist = $SOAPArtIDs -> ID;
+        if (is_array($SOAPArtIDs -> ID)) {
+            $idlist = implode(',', $SOAPArtIDs -> ID);
+        }
+        $FAQItems = $SOAPCl -> PublicFAQGet(['ItemID'  =>  $idlist]);
         foreach ($FAQItems -> FAQItem as $FAQItem) {
-            array_push($FAQArticles, ['Article' => ['ID' => $FAQItem -> ID,
-                'Title' => $FAQItem -> Title,
-                'question' => $FAQItem -> Field1,
-                'answer' => $FAQItem -> Field3]]);
+            if (!is_object($FAQItem)) {
+                // WTF?
+                continue;
+            }
+            elseif (property_exists($FAQItem, 'ID') &&
+                property_exists($FAQItem, 'Title') &&
+                property_exists($FAQItem, 'Field1') &&
+                property_exists($FAQItem, 'Field3')) {
+                    array_push($FAQArticles, ['Article' => ['ID' => $FAQItem -> ID,
+                        'Title' => $FAQItem -> Title,
+                        'question' => $FAQItem -> Field1,
+                        'answer' => $FAQItem -> Field3]]);
+            } elseif ($debugging) {
+                var_dump($FAQItem);
+            }
         }
         return $FAQArticles;
     }
