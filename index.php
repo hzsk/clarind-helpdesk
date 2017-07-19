@@ -1,3 +1,10 @@
+<?php
+session_start();
+require("/etc/clarin-helpdesk.conf"); // THis is not committed to github!
+function req_param(&$param, $default){
+    return isset($param) ? $param : $default;
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,10 +15,7 @@
     <link rel="stylesheet" href="bootstrap.min.css">
 </head>
 <body>
-
 <?php
-session_start();
-require(".htsecretpasswords.inc"); // THis is not committed to github!!
 if (!isset($recaptcha_public, $recaptcha_secret,
     $ticketing_user, $ticketing_password,
     $default_queue, $default_owner, $default_responsible, $default_lang))
@@ -25,11 +29,36 @@ if (!isset($recaptcha_public, $recaptcha_secret,
  * If you wonder about ID's just click on the respective users and queues in the
  * OTRS backend
  */
-function req_param(&$param, $default){
-    return isset($param) ? $param : $default;
+$QueueID = $default_queue; // extra-careful
+if (isset($_REQUEST['queue']) && !isset($_REQUEST['QueueID'])) {
+    // I bet I could pull this from OTRS too... the previous impl. didn't work
+    // so I just hard-coded stuff
+    $qmap = array(
+        "Aggregator" => "41",
+        "Junk" => "3",
+        "HZSK" => "5",
+        "HZSK::corpora" => "9",
+        "BAS" => "19",
+        "BBAW" => "20",
+        "ETue" => "21",
+        "IDS" => "18",
+        "IMS" => "22",
+        "UdS" => "24",
+        "VLO" => "34"
+    );
+    if (array_key_exists($_REQUEST['queue'], $qmap)) {
+        $QueueID = $qmap[$_REQUEST['queue']];
+    }
+    else {
+        echo("<div>Helpdesk form has not been setup to send messages for " .
+            $_REQUEST['queue'] . ", this message will be send to generic queue"
+            . " for sorting.</div>");
+    }
+}
+else {
+    $QueueID = req_param($_REQUEST['QueueID'], $default_queue);
 }
 $lang = req_param($_REQUEST['lang'], $default_lang);
-$QueueID = req_param($_REQUEST['QueueID'], $default_queue);
 $OwnerID = req_param($_REQUEST['OwnerID'],  $default_owner);
 $ResponsibleID = req_param($_REQUEST['ResponsibleID'], $default_responsible);
 
@@ -68,7 +97,7 @@ $text = array (
     "de" => "<div>Bitte z&ouml;gern Sie nicht, sich bei allen Fragen direkt an "
     . "den <b>CLARIN-D Helpdesk</b> zu wenden. </div><div>&nbsp;</div>" .
     "<div>Ihre Anfrage wird dann umgehend an eine/-n Ansprechparter/-in in " .
-    "CLARIN-D Weitergeleitet. </div><div>&nbsp;</div>" .
+    "CLARIN-D weitergeleitet. </div><div>&nbsp;</div>" .
     "<div>Sie erhalten sofort eine Bestätigung Ihrer Anfrage per E-Mail. " .
     "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte eine E-Mail " .
     "an <a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>.",
@@ -81,6 +110,27 @@ $text = array (
     "confirmation, please send us an email at " .
     "<a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>."
 );
+if ($QueueID == 40) {
+    $text['de'] =
+        "<div>Bitte zögern Sie nicht, sich bei allen Fragen direkt an den CATMA"
+        . "Helpdesk zu wenden.</div>" .
+        "<div>Ihre Anfrage wird dann umgehend an eine/-n Ansprechparter/-in " .
+        "bei CATMA weitergeleitet.</div>" .
+        "<div>Sie erhalten sofort eine Bestätigung Ihrer Anfrage per E-Mail. " .
+        "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte " .
+        "eine E-Mail an " .
+        "<a href='mailto:support@catma.de'>support@catma.de</a>.";
+    $text['en'] =
+        "<div>Please do not hesitate to contact the CATMA Helpdesk with " .
+        "any questions.</div>" .
+        "<div>Your inquiry will immediately be forwarded to " .
+        "a CATMA expert.</div>" .
+        "<div>You will receive a confirmation email immediately " .
+        "after submitting your inquiry. " .
+        "In case you do not receive a confirmation, please send us an " .
+        "email at <a href='mailto:support@catma.de'>support@catma.de.</a>" .
+        "</div>";
+}
 // error message that for some reason does not appear
 $error = array (
     "de" => "<div>Ein Fehler bei der &Uuml;bermittlung des Formulars ist " .
