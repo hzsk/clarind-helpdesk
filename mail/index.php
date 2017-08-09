@@ -131,7 +131,6 @@ if ($QueueID == 40) {
         "email at <a href='mailto:support@catma.de'>support@catma.de.</a>" .
         "</div>";
 }
-// error message that for some reason does not appear
 $error = array (
     "de" => "<div>Ein Fehler bei der &Uuml;bermittlung des Formulars ist " .
     "aufgetreten. Bitte kontaktieren Sie uns mit Ihrem Anliegen direkt via " .
@@ -140,7 +139,12 @@ $error = array (
     "<a href='mailto:support@clarin-d.de'>support@clarin-d.de</a></div>" .
     "<div>&nbsp;</div>"
 );
-
+$captchafail = array (
+    "de" => "<div class='warning'>Leider wurde das Captcha nicht " .
+        "korrekt beantwortet.</div>",
+    "en" => "<div class='warning'>Unfortunately the captcha " .
+        "was not answered correctly.</div>"
+    );
 // the incredible old-fashined form library, see
 // http://www.imavex.com/pfbc3.x-php5/
 use PFBC\Form;
@@ -302,7 +306,45 @@ elseif(isset($_POST['g-recaptcha-response'])){
     }
       // else catcha error
     else {
-        echo $error[$lang];
+        echo $captchafail[$lang];
+        $form = new Form("login");
+        // store the parameters passed above in hidden fields
+        $form->addElement(new Element\Hidden("lang", $lang));
+        $form->addElement(new Element\Hidden("QueueID", $QueueID));
+        $form->addElement(new Element\Hidden("OwnerID", $OwnerID));
+        $form->addElement(new Element\Hidden("ResponsibleID", $ResponsibleID));
+        // and here comes all the other fieldwork
+        $form->addElement(new Element\Textbox($lable[$lang]["name"].":", "name",
+            array(
+                "required" => 1,
+                "value" => $_POST['name']
+        )));
+        $form->addElement(new Element\Email($lable[$lang]["mail"].":", "mail",
+            array(
+                "required" => 1,
+                "value" => $_POST['mail']
+        )));
+        $form->addElement(new Element\Textbox($lable[$lang]["sbj"].":", "sbj",
+            array(
+                "required" => 1,
+                "value" => $_POST['sbj']
+        )));
+        $form->addElement(new Element\Textarea($lable[$lang]["msg"].":", "msg",
+            array(
+                "required" => 1,
+                "value" => $_POST['msg']
+        )));
+        // "I am not a robot"
+        $form->addElement(new Element\HTML('<br /><div class="g-recaptcha" ' .
+            'data-sitekey="' . $recaptcha_public . '"></div>' .
+            '<br />'));
+        // buttonss
+        $form->addElement(new Element\Button($lable[$lang]["sndbt"]));
+        $form->addElement(new Element\Button($lable[$lang]["cncbt"], "button",
+            array(
+            "onclick" => "history.go(-1);"
+        )));
+        $form->render();
     }
 }
 // should never reach this but just in case
