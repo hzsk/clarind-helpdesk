@@ -49,10 +49,14 @@ if (isset($_REQUEST['queue']) && !isset($_REQUEST['QueueID'])) {
     if (array_key_exists($_REQUEST['queue'], $qmap)) {
         $QueueID = $qmap[$_REQUEST['queue']];
     }
+    elseif (is_numeric($_REQUEST['queue'])) {
+        print("<div>Queue $_REQUEST[queue] does not exist, maybe a bad link" .
+            " meant to point <a href='" .
+            $_SERVER['SCRIPT_SELF'] . "?QueueID=" .
+            $_REQUEST['queue'] . ">here</a>instead?</div>");
+    }
     else {
-        echo("<div>Helpdesk form has not been setup to send messages for " .
-            $_REQUEST['queue'] . ", this message will be send to generic queue"
-            . " for sorting.</div>");
+        print("<div>Queue $_REQUEST[queue] does not exist.</div>");
     }
 }
 else {
@@ -110,6 +114,7 @@ $text = array (
     "confirmation, please send us an email at " .
     "<a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>."
 );
+$logo = "/images/clarin.png";
 if ($QueueID == 40) {
     $text['de'] =
         "<div>Bitte zögern Sie nicht, sich bei allen Fragen direkt an den CATMA"
@@ -130,6 +135,7 @@ if ($QueueID == 40) {
         "In case you do not receive a confirmation, please send us an " .
         "email at <a href='mailto:support@catma.de'>support@catma.de.</a>" .
         "</div>";
+    unset($logo);
 }
 $error = array (
     "de" => "<div>Ein Fehler bei der &Uuml;bermittlung des Formulars ist " .
@@ -145,6 +151,9 @@ $captchafail = array (
     "en" => "<div class='warning'>Unfortunately the captcha " .
         "was not answered correctly.</div>"
     );
+if (isset($logo)) {
+    printf("<img src='%s' alt='[logo]'/>", $logo);
+}
 // the incredible old-fashined form library, see
 // http://www.imavex.com/pfbc3.x-php5/
 use PFBC\Form;
