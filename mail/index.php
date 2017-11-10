@@ -1,6 +1,7 @@
 <?php
 session_start();
 require("/etc/clarin-helpdesk.conf"); // THis is not committed to github!
+$debugging = true;
 function req_param(&$param, $default){
     return isset($param) ? $param : $default;
 }
@@ -34,29 +35,42 @@ if (isset($_REQUEST['queue']) && !isset($_REQUEST['QueueID'])) {
     // I bet I could pull this from OTRS too... the previous impl. didn't work
     // so I just hard-coded stuff
     $qmap = array(
-        "Aggregator" => "41",
-        "Junk" => "3",
-        "HZSK" => "5",
-        "HZSK::corpora" => "9",
-        "BAS" => "19",
-        "BBAW" => "20",
-        "ETue" => "21",
-        "IDS" => "18",
-        "IMS" => "22",
-        "UdS" => "24",
-        "VLO" => "34"
+        "aggregator" => "41",
+        "junk" => "3",
+        "hzsk" => "5",
+        "hzsk::corpora" => "9",
+        "bas" => "19",
+        "bbaw" => "20",
+        "etue" => "21",
+        "ids" => "18",
+        "ims" => "22",
+        "uds" => "24",
+        "vlo" => "34"
     );
-    if (array_key_exists($_REQUEST['queue'], $qmap)) {
-        $QueueID = $qmap[$_REQUEST['queue']];
+    $qq = strtolower($_REQUEST['queue']);
+    if (array_key_exists($qq, $qmap)) {
+        $QueueID = $qmap[$qq];
     }
     elseif (is_numeric($_REQUEST['queue'])) {
-        print("<div>Queue $_REQUEST[queue] does not exist, maybe a bad link" .
-            " meant to point <a href='" .
-            $_SERVER['SCRIPT_SELF'] . "?QueueID=" .
-            $_REQUEST['queue'] . ">here</a>instead?</div>");
+        if ($debugging) {
+            print("<div>Queue $_REQUEST[queue] does not exist, maybe a bad link" .
+                " meant to point <a href='" .
+                $_SERVER['SCRIPT_SELF'] . "?QueueID=" .
+                $_REQUEST['queue'] . ">here</a>instead?</div>");
+        } else {
+            file_put_contents("/var/log/helpdesk.log","numeric Q:" .
+                print_r($_REQUEST, true) . print_r($_SERVER, true),
+                FILE_APPEND);
+        }
     }
     else {
-        print("<div>Queue $_REQUEST[queue] does not exist.</div>");
+        if ($debugging) {
+            print("<div>Queue $_REQUEST[queue] does not exist.</div>");
+        } else {
+            file_put_contents("/var/log/helpdesk.log", "no Q:" .
+                print_r($_REQUEST, true) . print_r($_SERVER, true),
+                FILE_APPEND);
+        }
     }
 }
 else {
@@ -66,12 +80,10 @@ $lang = req_param($_REQUEST['lang'], $default_lang);
 $OwnerID = req_param($_REQUEST['OwnerID'],  $default_owner);
 $ResponsibleID = req_param($_REQUEST['ResponsibleID'], $default_responsible);
 
-$debugging = true;
 if ($debugging)
 {
     echo("<div><strong>This page does not send messages to CLARIN-D helpdesk" .
-        "(or sometimes sends messages to spam queue, but they will not be " .
-        "recorded)" .
+        " (outside spam queue) " .
         " It is only used for testing purposes.</strong></div>");
 }
 // lables
