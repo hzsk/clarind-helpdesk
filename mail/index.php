@@ -149,6 +149,26 @@ if ($QueueID == 40) {
         "</div>";
     unset($logo);
 }
+elseif ($QueueID == 43) {
+    $text['en'] =
+        "<p>Please do not hesitate to contact the helpdesk of the " .
+        "CLARIN Knowledge Centre for Linguistic Diversity and " .
+        "Language Documentation (CKLD) with any questions.</p>" .
+        "<p>Depending on the subject language and technologies or " .
+        "tools used, we will forward your inquiry to the participating " .
+        "centre holding the relevant expertise. You can expect an " .
+        "answer within two business days.</p>" .
+        "<p>The CKLD Helpdesk is operated by the CLARIN-D Centre at " .
+        "the Hamburg Centre for Language Corpora (HZSK). " .
+        "You will receive a confirmation email immediately after " .
+        "submitting your inquiry. In case you do not receive a " .
+        "confirmation, please send us an email at " .
+        "<a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>.".
+        "</p>";
+    // FIXME
+    $text['de'] = $text['en'];
+    $logo = "/images/clarink.png";
+}
 $error = array (
     "de" => "<div>Ein Fehler bei der &Uuml;bermittlung des Formulars ist " .
     "aufgetreten. Bitte kontaktieren Sie uns mit Ihrem Anliegen direkt via " .
