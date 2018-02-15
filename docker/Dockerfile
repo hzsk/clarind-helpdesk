@@ -45,9 +45,9 @@ RUN a2enmod rewrite && \
 RUN sed -i -e 's/max_allowed_packet.*/max_allowed_packet = 32M/' \
     -e  '/[[]mysqld[]]/a innodb_log_file_size = 512M' /etc/mysql/my.cnf &&\
     /etc/init.d/mysql restart
-USER otrs
-RUN whoami
-RUN /opt/otrs/bin/Cron.sh start
+RUN /opt/otrs/bin/Cron.sh start otrs
 EXPOSE 80 8080
 
+ADD start.bash /sbin/start.bash
+CMD bash /sbin/start.bash; bash
 
