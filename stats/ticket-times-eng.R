@@ -8,9 +8,9 @@ remove_outliers <- function(x, na.rm = TRUE, ...) {
   y[x > (qnt[2] + H)] <- NA
   y
 }
-responsetimes <- t$FirstResponseInMin / 60 / 24
-closetimesfull <- t$SolutionInMin / 60 / 24
-closetimes <- remove_outliers(t$SolutionInMin / 60 / 24)
+responsetimes <- t$FirstResponseInMin / 60 / 8
+closetimesfull <- t$SolutionInMin / 60 / 8
+closetimes <- remove_outliers(t$SolutionInMin / 60 / 8)
 responseavg <- mean(t$firstResponseInMin, na.rm=TRUE)
 responsemedian <- median(t$firstResponseInMin, na.rm=TRUE)
 closeavg <- mean(t$SolutionInMin, na.rm=TRUE)
