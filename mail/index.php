@@ -45,6 +45,7 @@ if (isset($_REQUEST['queue']) && !isset($_REQUEST['QueueID'])) {
         "ids" => "18",
         "ims" => "22",
         "uds" => "24",
+        "tools" => "6",
         "vlo" => "34"
     );
     $qq = strtolower($_REQUEST['queue']);
@@ -97,7 +98,8 @@ $lable = array (
     "success" => "<div>Vielen Dank, wir haben Ihre Nachricht erhalten und "
     . "melden uns schnellstm&ouml;glich bei Ihnen. </div>" .
     "<div>&nbsp;</div><div>Sie erhalten umgehend eine Eingangsbest&auml;tigung "
-    . "&uuml;ber die von Ihnen angegebene Adresse</div>"),
+    . "&uuml;ber die von Ihnen angegebene Adresse</div>",
+    "upload" => "Dateien hinzufügen"),
 "en" => array ("name" => "Full name",
     "mail" => "Email",
     "sbj" => "Subject",
@@ -106,7 +108,8 @@ $lable = array (
     "cncbt" => "Cancel",
     "success" => "<div>Thank you, We received your message and we will " .
     "get in touch with you soon. </div><div>You will soon receive an " .
-    "email confirmation</div>"),
+    "email confirmation</div>",
+    "upload" => "File attachment (optional)"),
 );
 // text to be shown at the beginning
 $text = array (
@@ -216,18 +219,16 @@ if(!isset($_POST['g-recaptcha-response'])){
     )));
     $form->addElement(new Element\Textarea($lable[$lang]["msg"].":", "msg",
         array(
-        "required" => 1
+            "required" => 1,
+            "style" => "width: 450px; height: 200px;",
     )));
+    $form->addElement(new Element\File($lable[$lang]["upload"], 'userfile'));
     // "I am not a robot"
     $form->addElement(new Element\HTML('<br /><div class="g-recaptcha" ' .
         'data-sitekey="' . $recaptcha_public . '"></div>' .
         '<br />'));
     // buttonss
     $form->addElement(new Element\Button($lable[$lang]["sndbt"]));
-    $form->addElement(new Element\Button($lable[$lang]["cncbt"], "button",
-        array(
-        "onclick" => "history.go(-1);"
-    )));
     $form->render();
 }
 // and if captcha was sent ...
@@ -246,7 +247,7 @@ elseif(isset($_POST['g-recaptcha-response'])){
             $OwnerID = "12";
             echo("<div>Would be creating a ticket here:</div>");
             echo("<pre>");
-            var_dump(
+            $htmldump = var_dump(
                 array('CustomerUserLogin' => 'FakeLogin',
                     'Password' => "this is not the real password!",
                     'Ticket' => array(
@@ -263,17 +264,21 @@ elseif(isset($_POST['g-recaptcha-response'])){
                         'From' => $_POST['name'].'<'.$_POST['mail'].'>',
                         'Subject' => $_POST['sbj'],
                         'Body' => $_POST['msg'],
-                        'ContentType' => 'text/plain; charset=ISO-8859-1'
+                        'MimeType' => 'text/plain',
+                        'Charest' => 'utf8',
                     ),
-                )
+                ), TRUE
             );
+            echo(htmlspecialchars($htmldump));
             echo("</pre>");
         }
         // initiate a new SOAP Client based on
         $WSDL = 'GenericTicketConnector.wsdl';
         $SOAPCl = new SoapClient($WSDL);
         // Create Ticket
-        $create = $SOAPCl->TicketCreate(
+        $create = FALSE;
+        if (!empty($_FILES['userfile'])) {
+            $create = $SOAPCl->TicketCreate(
                 array('CustomerUserLogin' => $ticketing_user,
                     'Password' => $ticketing_password,
                     'Ticket' => array(
@@ -290,10 +295,40 @@ elseif(isset($_POST['g-recaptcha-response'])){
                         'From' => $_POST['name'].'<'.$_POST['mail'].'>',
                         'Subject' => $_POST['sbj'],
                         'Body' => $_POST['msg'],
-                        'ContentType' => 'text/plain; charset=ISO-8859-1'
+                        'MimeType' => 'text/plain',
+                        'Charset' => 'utf8',
+                    ),
+                    'Attachment' => array(
+                        'Content' => base64_encode(file_get_contents($_FILES['userfile']['tmp_name'])),
+                        'ContentType' => $_FILES['userfile']['type'],
+                        'Filename' => $_FILES['userfile']['name'],
                     ),
                 )
             );
+        } else {
+            $create = $SOAPCl->TicketCreate(
+                array('CustomerUserLogin' => $ticketing_user,
+                    'Password' => $ticketing_password,
+                    'Ticket' => array(
+                        'Title' => $_POST['sbj'],
+                        'QueueID' => $QueueID,
+                        'TypeID' => 1,
+                        'StateID' => 1,
+                        'PriorityID' => 3,
+                        'OwnerID' => $OwnerID,
+                        'ResponsibleID' => $ResponsibleID,
+                        'CustomerUser' => $ticketing_user
+                    ),
+                    'Article' => array(
+                        'From' => $_POST['name'].'<'.$_POST['mail'].'>',
+                        'Subject' => $_POST['sbj'],
+                        'Body' => $_POST['msg'],
+                        'MimeType' => 'text/plain',
+                        'Charset' => 'utf8',
+                    ),
+                )
+            );
+        }
         if ($debugging) {
             echo("<pre>");
             var_dump($create);
