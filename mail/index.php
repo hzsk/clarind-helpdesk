@@ -209,10 +209,7 @@ if(!isset($_POST['g-recaptcha-response'])){
     $form->addElement(new Element\Hidden("OwnerID", $OwnerID));
     $form->addElement(new Element\Hidden("ResponsibleID", $ResponsibleID));
     // and here comes all the other fieldwork
-    $form->addElement(new Element\Textbox($lable[$lang]["name"].":", "name",
-        array(
-        "required" => 1
-    )));
+    $form->addElement(new Element\Textbox($lable[$lang]["name"].":", "name"));
     $form->addElement(new Element\Email($lable[$lang]["mail"].":", "mail",
         array(
         "required" => 1
@@ -250,6 +247,12 @@ elseif(isset($_POST['g-recaptcha-response'])){
         $_SERVER['REMOTE_ADDR']);
     // and proved successful ...
     if(json_decode($response, true)['success'] == 1) {
+        if (empty($_POST['name'])) {
+          $name = "Anonymous";
+        } else {
+          // XXX: it should be Quoted-Unreadable but OTRS doesn't decode QP
+          $name = '"' . str_replace('"', '', $_POST['name']) . '"';
+        }
         if ($debugging) {
             $QueueID = "3";
             $ResponsibleID = "12";
@@ -270,11 +273,11 @@ elseif(isset($_POST['g-recaptcha-response'])){
                         'CustomerUser' => 'FakeUser'
                     ),
                     'Article' => array(
-                        'From' => $_POST['name'].'<'.$_POST['mail'].'>',
+                        'From' => $name . ' <'.$_POST['mail'].'>',
                         'Subject' => $_POST['sbj'],
                         'Body' => $_POST['msg'],
                         'MimeType' => 'text/plain',
-                        'Charest' => 'utf8',
+                        'Charset' => 'utf8',
                     ),
                 ), TRUE
             );
@@ -301,7 +304,7 @@ elseif(isset($_POST['g-recaptcha-response'])){
                         'CustomerUser' => $ticketing_user
                     ),
                     'Article' => array(
-                        'From' => $_POST['name'].'<'.$_POST['mail'].'>',
+                        'From' => $name . ' <'.$_POST['mail'].'>',
                         'Subject' => $_POST['sbj'],
                         'Body' => $_POST['msg'],
                         'MimeType' => 'text/plain',
@@ -329,7 +332,7 @@ elseif(isset($_POST['g-recaptcha-response'])){
                         'CustomerUser' => $ticketing_user
                     ),
                     'Article' => array(
-                        'From' => $_POST['name'].'<'.$_POST['mail'].'>',
+                        'From' => $name . ' <'.$_POST['mail'].'>',
                         'Subject' => $_POST['sbj'],
                         'Body' => $_POST['msg'],
                         'MimeType' => 'text/plain',
@@ -365,7 +368,7 @@ elseif(isset($_POST['g-recaptcha-response'])){
                         'Password' => $ticketing_password,
                         'TicketID' => $create->TicketID,
                         'Ticket' => array(
-                            'CustomerUser' => $_POST['name'],
+                            'CustomerUser' => $name,
                             'CustomerID' => $_POST['mail']
                         ),
                        )
@@ -401,7 +404,6 @@ elseif(isset($_POST['g-recaptcha-response'])){
         // and here comes all the other fieldwork
         $form->addElement(new Element\Textbox($lable[$lang]["name"].":", "name",
             array(
-                "required" => 1,
                 "value" => $_POST['name']
         )));
         $form->addElement(new Element\Email($lable[$lang]["mail"].":", "mail",
@@ -425,10 +427,6 @@ elseif(isset($_POST['g-recaptcha-response'])){
             '<br />'));
         // buttonss
         $form->addElement(new Element\Button($lable[$lang]["sndbt"]));
-        $form->addElement(new Element\Button($lable[$lang]["cncbt"], "button",
-            array(
-            "onclick" => "history.go(-1);"
-        )));
         $form->render();
     }
 }
