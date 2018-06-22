@@ -99,6 +99,8 @@ $lable = array (
     . "melden uns schnellstm&ouml;glich bei Ihnen. </div>" .
     "<div>&nbsp;</div><div>Sie erhalten umgehend eine Eingangsbest&auml;tigung "
     . "&uuml;ber die von Ihnen angegebene Adresse</div>",
+    "privacy" => "Ich stimme die <a href='datenschutz.html' target='_blank'>" .
+      "Datenschutzrichtlinie</a> zu",
     "upload" => "Dateien hinzufügen"),
 "en" => array ("name" => "Full name",
     "mail" => "Email",
@@ -109,6 +111,8 @@ $lable = array (
     "success" => "<div>Thank you, We received your message and we will " .
     "get in touch with you soon. </div><div>You will soon receive an " .
     "email confirmation</div>",
+    "privacy" => "I agree with the <a href='privacy-policy.html' " .
+      "target='_blank'>privacy policy</p>",
     "upload" => "File attachment (optional)"),
 );
 // text to be shown at the beginning
@@ -223,6 +227,11 @@ if(!isset($_POST['g-recaptcha-response'])){
             "style" => "width: 450px; height: 200px;",
     )));
     $form->addElement(new Element\File($lable[$lang]["upload"], 'userfile'));
+    $form->addElement(new Element\HTML("<label>" .
+        "<input type='checkbox' required/>" .
+        $lable[$lang]["privacy"] .
+        "<span class='required'> *</span>" .
+        "</label>"));
     // "I am not a robot"
     $form->addElement(new Element\HTML('<br /><div class="g-recaptcha" ' .
         'data-sitekey="' . $recaptcha_public . '"></div>' .
@@ -277,7 +286,7 @@ elseif(isset($_POST['g-recaptcha-response'])){
         $SOAPCl = new SoapClient($WSDL);
         // Create Ticket
         $create = FALSE;
-        if (!empty($_FILES['userfile'])) {
+        if (!empty($_FILES['userfile']) && ($_FILES['userfile']['error'] == 0)) {
             $create = $SOAPCl->TicketCreate(
                 array('CustomerUserLogin' => $ticketing_user,
                     'Password' => $ticketing_password,
