@@ -311,7 +311,8 @@ elseif(isset($_POST['g-recaptcha-response'])){
                         'Charset' => 'utf8',
                     ),
                     'Attachment' => array(
-                        'Content' => base64_encode(file_get_contents($_FILES['userfile']['tmp_name'])),
+//                        'Content' => base64_encode(file_get_contents($_FILES['userfile']['tmp_name'])),
+                        'Content' => file_get_contents($_FILES['userfile']['tmp_name']),
                         'ContentType' => $_FILES['userfile']['type'],
                         'Filename' => $_FILES['userfile']['name'],
                     ),
