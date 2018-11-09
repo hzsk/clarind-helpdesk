@@ -34,19 +34,49 @@ $QueueID = $default_queue; // extra-careful
 if (isset($_REQUEST['queue']) && !isset($_REQUEST['QueueID'])) {
     // I bet I could pull this from OTRS too... the previous impl. didn't work
     // so I just hard-coded stuff
-    $qmap = array(
+  $qmap = array(
         "aggregator" => "41",
-        "junk" => "3",
-        "hzsk" => "5",
-        "hzsk::corpora" => "9",
         "bas" => "19",
         "bbaw" => "20",
         "etue" => "21",
+        "etue::baumbanken" => "28",
+        "etue::baumbanken::tuendra" => "32",
+        "etue::webanno" => "35",
+        "etue::weblicht" => "27",
+        "etue::webportal" => "39",
+        "etue::wortnetze" => "29",
+        "hzsk" => "5",
+        "hzsk::corpora" => "9",
+        "hzsk::methods" => "8",
+        "hzsk::methods::best_practice" => "16",
+        "hzsk::methods::data_format" => "15",
+        "hzsk::services" => "31",
+        "hzsk::tools" => "6",
+        "hzsk::tools::annis" => "38",
+        "hzsk::tools::catma" => "40",
+        "hzsk::tools::coma" => "12",
+        "hzsk::tools::exakt" => "11",
+        "hzsk::tools::pe" => "13",
+        "hzsk::tools::pe::media" => "14",
+        "hzsk::training" => "7",
+        "hzsk::website" => "10",
         "ids" => "18",
+        "ids::legal" => "17",
         "ims" => "22",
-        "uds" => "24",
+        "junk" => "3",
+        "misc" => "4",
+        "mpi" => "23",
+        "otrs" => "26",
+        "postmaster" => "1",
+        "raw" => "2",
+        "review" => "30",
         "tools" => "6",
-        "vlo" => "34"
+        "uds" => "24",
+        "uds::telemaco" => "33",
+        "ulei" => "25",
+        "vlo" => "34",
+        "vlo::metadata" => "37",
+        "vlo::technicalities" => 36
     );
     $qq = strtolower($_REQUEST['queue']);
     if (array_key_exists($qq, $qmap)) {
