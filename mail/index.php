@@ -399,8 +399,7 @@ elseif(isset($_POST['g-recaptcha-response'])){
                         'Password' => $ticketing_password,
                         'TicketID' => $create->TicketID,
                         'Ticket' => array(
-                            'CustomerUser' => $name,
-                            'CustomerID' => $_POST['mail']
+                            'CustomerUser' => $_POST['mail'],
                         ),
                        )
                     );
