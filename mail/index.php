@@ -163,7 +163,7 @@ $text = array (
     "confirmation, please send us an email at " .
     "<a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>."
 );
-$logo = "/images/clarin.png";
+$logo = "/images/clarind.png";
 if ($QueueID == 40) {
     $text['de'] =
         "<div>Bitte zögern Sie nicht, sich bei allen Fragen direkt an den CATMA"
