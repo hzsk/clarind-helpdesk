@@ -145,6 +145,10 @@ $lable = array (
       "target='_blank'>privacy policy</p>",
     "upload" => "File attachment (optional)"),
 );
+$exmaopts = array(
+	"en" => array("General", "Partitur-Editor", "Coma", "Exakt", "Audio/Video"),
+	"de" => array("Allgemein", "Partitur-Editor", "Coma", "Exakt", "Audio/Video")
+);
 // text to be shown at the beginning
 $text = array (
     "de" => "<div>Bitte z&ouml;gern Sie nicht, sich bei allen Fragen direkt an "
@@ -244,6 +248,9 @@ if(!isset($_POST['g-recaptcha-response'])){
         array(
         "required" => 1
     )));
+    if ($QueueID == 6) {
+	    $form->addElement(new Element\Select("Exmaralda:", "exmatool", $exmaopts[$lang]));
+    }
     $form->addElement(new Element\Textbox($lable[$lang]["sbj"].":", "sbj",
         array(
         "required" => 1
@@ -282,7 +289,7 @@ elseif(isset($_POST['g-recaptcha-response'])){
         } else {
           // XXX: it should be Quoted-Unreadable but OTRS doesn't decode QP
           $name = '"' . str_replace('"', '', $_POST['name']) . '"';
-        }
+	}
         if ($debugging) {
             $QueueID = "3";
             $ResponsibleID = "12";
@@ -314,6 +321,24 @@ elseif(isset($_POST['g-recaptcha-response'])){
             echo(htmlspecialchars($htmldump));
             echo("</pre>");
         }
+	if (!empty($_POST['exmatool'])) {
+		// "en" => array("General", "Partitur-Editor", "Coma", "Exakt", "Media"),
+		if ($_POST['exmatool'] == $exmaopts[$lang][0]) {
+			$QueueID = 6;
+		} elseif ($_POST['exmatool'] == $exmaopts[$lang][1]) {
+			$QueueID = 13;
+		} elseif ($_POST['exmatool'] == $exmaopts[$lang][2]) {
+			$QueueID = 12;
+		} elseif ($_POST['exmatool'] == $exmaopts[$lang][3]) {
+			$QueueID = 11;
+		} elseif ($_POST['exmatool'] == $exmaopts[$lang][4]) {
+			$QueueID = 14;
+		} else {
+			echo("Unknown EXMARALDA Q $_POST[exmatool]");
+			die();
+		}
+		$_POST['msg'] = $_POST['exmatool'] . ":" . "\r\n" . $_POST['msg'];
+	}
         // initiate a new SOAP Client based on
         $WSDL = 'GenericTicketConnector.wsdl';
         $SOAPCl = new SoapClient($WSDL);
