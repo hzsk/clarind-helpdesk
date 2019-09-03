@@ -146,8 +146,8 @@ $lable = array (
     "upload" => "File attachment (optional)"),
 );
 $exmaopts = array(
-	"en" => array("General", "Partitur-Editor", "Coma", "Exakt", "Audio/Video"),
-	"de" => array("Allgemein", "Partitur-Editor", "Coma", "Exakt", "Audio/Video")
+	"en" => array("General", "Partitur-Editor", "Coma", "Exakt", "Audio/Video", "Training"),
+	"de" => array("Allgemein", "Partitur-Editor", "Coma", "Exakt", "Audio/Video", "Schulungen")
 );
 // text to be shown at the beginning
 $text = array (
@@ -322,7 +322,7 @@ elseif(isset($_POST['g-recaptcha-response'])){
             echo("</pre>");
         }
 	if (!empty($_POST['exmatool'])) {
-		// "en" => array("General", "Partitur-Editor", "Coma", "Exakt", "Media"),
+		// "en" => array("General", "Partitur-Editor", "Coma", "Exakt", "Media", "Training"),
 		if ($_POST['exmatool'] == $exmaopts[$lang][0]) {
 			$QueueID = 6;
 		} elseif ($_POST['exmatool'] == $exmaopts[$lang][1]) {
@@ -333,6 +333,8 @@ elseif(isset($_POST['g-recaptcha-response'])){
 			$QueueID = 11;
 		} elseif ($_POST['exmatool'] == $exmaopts[$lang][4]) {
 			$QueueID = 14;
+		} elseif ($_POST['exmatool'] == $exmaopts[$lang][5]) {
+			$QueueID = 7;	
 		} else {
 			echo("Unknown EXMARALDA Q $_POST[exmatool]");
 			die();
