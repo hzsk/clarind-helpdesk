@@ -214,7 +214,7 @@ elseif ($QueueID == 43) {
 }
 elseif ($QueueID == 58) {
     $text['de'] =
-	"<div>Bitte z&ouml;gern Sie nicht, sich bei allen Fragen direkt an "
+	"<div>&nbsp;</div><div>Bitte z&ouml;gern Sie nicht, sich bei allen Fragen direkt an "
         . "den <b>CLARIAH-DE Helpdesk</b> zu wenden. </div><div>&nbsp;</div>" .
         "<div>Ihre Anfrage wird dann umgehend an eine/-n Ansprechparter/-in in " .
         "CLARIAH-DE weitergeleitet. </div><div>&nbsp;</div>" .
