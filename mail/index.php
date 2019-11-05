@@ -127,10 +127,10 @@ $lable = array (
     "msg" => "Ihre Nachricht",
     "sndbt" => "Senden",
     "cncbt" => "Abbrechen",
-    "success" => "<div>Vielen Dank, wir haben Ihre Nachricht erhalten und "
+    "success" => "<div>&nbsp;</div><div>Vielen Dank, wir haben Ihre Nachricht erhalten und "
     . "melden uns schnellstm&ouml;glich bei Ihnen. </div>" .
     "<div>&nbsp;</div><div>Sie erhalten umgehend eine Eingangsbest&auml;tigung "
-    . "&uuml;ber die von Ihnen angegebene Adresse</div>",
+    . "&uuml;ber die von Ihnen angegebene Adresse.</div>",
     "privacy" => "Ich stimme der <a href='datenschutz.html' target='_blank'>" .
       "Datenschutzrichtlinie</a> zu",
     "upload" => "Dateien hinzufügen"),
@@ -140,9 +140,9 @@ $lable = array (
     "msg" => "Your message",
     "sndbt" => "Send",
     "cncbt" => "Cancel",
-    "success" => "<div>Thank you, We received your message and we will " .
+    "success" => "<div>&nbsp;</div><div>Thank you, we received your message and we will " .
     "get in touch with you soon. </div><div>You will soon receive an " .
-    "email confirmation</div>",
+    "email confirmation.</div>",
     "privacy" => "I agree with the <a href='privacy-policy.html' " .
       "target='_blank'>privacy policy</p>",
     "upload" => "File attachment (optional)"),
@@ -153,14 +153,14 @@ $exmaopts = array(
 );
 // text to be shown at the beginning
 $text = array (
-    "de" => "<div>Bitte z&ouml;gern Sie nicht, sich bei allen Fragen direkt an "
+    "de" => "<div>&nbsp;</div><div>Bitte z&ouml;gern Sie nicht, sich bei allen Fragen direkt an "
     . "den <b>CLARIN-D Helpdesk</b> zu wenden. </div><div>&nbsp;</div>" .
     "<div>Ihre Anfrage wird dann umgehend an eine/-n Ansprechparter/-in in " .
     "CLARIN-D weitergeleitet. </div><div>&nbsp;</div>" .
     "<div>Sie erhalten sofort eine Bestätigung Ihrer Anfrage per E-Mail. " .
     "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte eine E-Mail " .
     "an <a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>.",
-    "en" => "<div>Please do not hesitate to contact the " .
+    "en" => "<div>&nbsp;</div><div>Please do not hesitate to contact the " .
     "<b>CLARIN-D Helpdesk</b> with any questions. </div>" .
     "<div>&nbsp;</div><div>Your inquiry will immediately be forwarded to a " .
     "CLARIN-D expert. </div><div>&nbsp;</div>" .
@@ -172,7 +172,7 @@ $text = array (
 $logo = "/images/clarind.png";
 if ($QueueID == 40) {
     $text['de'] =
-        "<div>Bitte zögern Sie nicht, sich bei allen Fragen direkt an den CATMA"
+        "<div>&nbsp;</div><div>Bitte zögern Sie nicht, sich bei allen Fragen direkt an den CATMA"
         . "Helpdesk zu wenden.</div>" .
         "<div>Ihre Anfrage wird dann umgehend an eine/-n Ansprechparter/-in " .
         "bei CATMA weitergeleitet.</div>" .
@@ -181,7 +181,7 @@ if ($QueueID == 40) {
         "eine E-Mail an " .
         "<a href='mailto:support@catma.de'>support@catma.de</a>.";
     $text['en'] =
-        "<div>Please do not hesitate to contact the CATMA Helpdesk with " .
+        "<div>&nbsp;</div><div>Please do not hesitate to contact the CATMA Helpdesk with " .
         "any questions.</div>" .
         "<div>Your inquiry will immediately be forwarded to " .
         "a CATMA expert.</div>" .
@@ -194,7 +194,7 @@ if ($QueueID == 40) {
 }
 elseif ($QueueID == 43) {
     $text['en'] =
-        "<p>Please do not hesitate to contact the helpdesk of the " .
+        "<p><div>&nbsp;</div>Please do not hesitate to contact the helpdesk of the " .
         "CLARIN Knowledge Centre for Linguistic Diversity and " .
         "Language Documentation (CKLD) with any questions.</p>" .
         "<p>Depending on the subject language and technologies or " .
