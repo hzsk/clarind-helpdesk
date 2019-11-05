@@ -131,7 +131,7 @@ $lable = array (
     . "melden uns schnellstm&ouml;glich bei Ihnen. </div>" .
     "<div>&nbsp;</div><div>Sie erhalten umgehend eine Eingangsbest&auml;tigung "
     . "&uuml;ber die von Ihnen angegebene Adresse</div>",
-    "privacy" => "Ich stimme die <a href='datenschutz.html' target='_blank'>" .
+    "privacy" => "Ich stimme der <a href='datenschutz.html' target='_blank'>" .
       "Datenschutzrichtlinie</a> zu",
     "upload" => "Dateien hinzufügen"),
 "en" => array ("name" => "Full name",
