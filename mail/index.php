@@ -38,8 +38,8 @@ if (isset($_REQUEST['queue']) && !isset($_REQUEST['QueueID'])) {
         "aggregator" => "41",
         "bas" => "19",
         "bbaw" => "20",
-	"clariah-de" => "58",
-	"clarin" => "23"
+      	"clariah-de" => "58",
+      	"clarin" => "23",
         "etue" => "21",
         "etue::baumbanken" => "28",
         "etue::baumbanken::tuendra" => "32",
@@ -220,7 +220,7 @@ elseif ($QueueID == 58) {
         "CLARIAH-DE weitergeleitet. </div><div>&nbsp;</div>" .
         "<div>Sie erhalten sofort eine Bestätigung Ihrer Anfrage per E-Mail. " .
         "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte eine E-Mail " .
-        "an <a href='mailto:support@clariah.de'>support@clariah.de</a>.",
+        "an <a href='mailto:support@clariah.de'>support@clariah.de</a>.";
     $text['en'] =
 	"<div>Please do not hesitate to contact the " .
     	"<b>CLARIAH-DE Helpdesk</b> with any questions. </div>" .
@@ -229,7 +229,7 @@ elseif ($QueueID == 58) {
     	"<div>You will receive a confirmation email immediately " .
     	"after submitting your inquiry. In case you do not receive a " .
     	"confirmation, please send us an email at " .
-    	"<a href='mailto:support@clariah.de'>support@clariah.de</a>."
+    	"<a href='mailto:support@clariah.de'>support@clariah.de</a>.";
     $logo = "/images/clariah-de.png";
 }
 $error = array (
