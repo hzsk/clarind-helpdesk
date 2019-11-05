@@ -38,6 +38,8 @@ if (isset($_REQUEST['queue']) && !isset($_REQUEST['QueueID'])) {
         "aggregator" => "41",
         "bas" => "19",
         "bbaw" => "20",
+	"clariah-de" => "58",
+	"clarin" => "23"
         "etue" => "21",
         "etue::baumbanken" => "28",
         "etue::baumbanken::tuendra" => "32",
@@ -76,7 +78,7 @@ if (isset($_REQUEST['queue']) && !isset($_REQUEST['QueueID'])) {
         "ulei" => "25",
         "vlo" => "34",
         "vlo::metadata" => "37",
-        "vlo::technicalities" => 36
+        "vlo::technicalities" => "36"
     );
     $qq = strtolower($_REQUEST['queue']);
     if (array_key_exists($qq, $qmap)) {
