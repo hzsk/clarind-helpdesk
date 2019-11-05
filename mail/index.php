@@ -222,7 +222,7 @@ elseif ($QueueID == 58) {
         "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte eine E-Mail " .
         "an <a href='mailto:support@clariah.de'>support@clariah.de</a>.";
     $text['en'] =
-	"<div>Please do not hesitate to contact the " .
+	"<div>&nbsp;</div><div>Please do not hesitate to contact the " .
     	"<b>CLARIAH-DE Helpdesk</b> with any questions. </div>" .
     	"<div>&nbsp;</div><div>Your inquiry will immediately be forwarded to a " .
     	"CLARIAH-DE expert. </div><div>&nbsp;</div>" .
