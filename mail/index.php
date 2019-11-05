@@ -212,6 +212,26 @@ elseif ($QueueID == 43) {
     $text['de'] = $text['en'];
     $logo = "/images/clarink.png";
 }
+elseif ($QueueID == 58) {
+    $text['de'] =
+	"<div>Bitte z&ouml;gern Sie nicht, sich bei allen Fragen direkt an "
+        . "den <b>CLARIAH-DE Helpdesk</b> zu wenden. </div><div>&nbsp;</div>" .
+        "<div>Ihre Anfrage wird dann umgehend an eine/-n Ansprechparter/-in in " .
+        "CLARIAH-DE weitergeleitet. </div><div>&nbsp;</div>" .
+        "<div>Sie erhalten sofort eine Bestätigung Ihrer Anfrage per E-Mail. " .
+        "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte eine E-Mail " .
+        "an <a href='mailto:support@clariah.de'>support@clariah.de</a>.",
+    $text['en'] =
+	"<div>Please do not hesitate to contact the " .
+    	"<b>CLARIAH-DE Helpdesk</b> with any questions. </div>" .
+    	"<div>&nbsp;</div><div>Your inquiry will immediately be forwarded to a " .
+    	"CLARIAH-DE expert. </div><div>&nbsp;</div>" .
+    	"<div>You will receive a confirmation email immediately " .
+    	"after submitting your inquiry. In case you do not receive a " .
+    	"confirmation, please send us an email at " .
+    	"<a href='mailto:support@clariah.de'>support@clariah.de</a>."
+    $logo = "/images/clariah-de.png";
+}
 $error = array (
     "de" => "<div>Ein Fehler bei der &Uuml;bermittlung des Formulars ist " .
     "aufgetreten. Bitte kontaktieren Sie uns mit Ihrem Anliegen direkt via " .
