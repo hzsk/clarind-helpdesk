@@ -21,6 +21,10 @@ Some queues have *string* aliases that can be addressed by `queue` parametre. If
 you don't set the above parametres, the tickets will go to Helpdesk maintainers
 for sorting.
 
+### Wordpress plugin
+
+Our colleagues at DARIAH-ERIC have a [wordpress form for CLARIN-D helpdesk](https://github.com/DARIAH-ERIC/contact-helpdesk)
+
 ## Installation of support form
 
 This has not so far been installed outside the support.clarin-d.de, but it
