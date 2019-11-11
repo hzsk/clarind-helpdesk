@@ -159,7 +159,7 @@ $text = array (
     "CLARIN-D weitergeleitet. </div><div>&nbsp;</div>" .
     "<div>Sie erhalten sofort eine Bestätigung Ihrer Anfrage per E-Mail. " .
     "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte eine E-Mail " .
-    "an <a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>.",
+    "an <a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>.<div>&nbsp;</div>",
     "en" => "<div>&nbsp;</div><div>Please do not hesitate to contact the " .
     "<b>CLARIN-D Helpdesk</b> with any questions. </div>" .
     "<div>&nbsp;</div><div>Your inquiry will immediately be forwarded to a " .
@@ -167,7 +167,7 @@ $text = array (
     "<div>You will receive a confirmation email immediately " .
     "after submitting your inquiry. In case you do not receive a " .
     "confirmation, please send us an email at " .
-    "<a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>."
+    "<a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>.<div>&nbsp;</div>"
 );
 $logo = "/images/clarind.png";
 if ($QueueID == 40) {
@@ -179,7 +179,7 @@ if ($QueueID == 40) {
         "<div>Sie erhalten sofort eine Bestätigung Ihrer Anfrage per E-Mail. " .
         "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte " .
         "eine E-Mail an " .
-        "<a href='mailto:support@catma.de'>support@catma.de</a>.";
+        "<a href='mailto:support@catma.de'>support@catma.de</a>.<div>&nbsp;</div>";
     $text['en'] =
         "<div>&nbsp;</div><div>Please do not hesitate to contact the CATMA Helpdesk with " .
         "any questions.</div>" .
@@ -188,7 +188,7 @@ if ($QueueID == 40) {
         "<div>You will receive a confirmation email immediately " .
         "after submitting your inquiry. " .
         "In case you do not receive a confirmation, please send us an " .
-        "email at <a href='mailto:support@catma.de'>support@catma.de.</a>" .
+        "email at <a href='mailto:support@catma.de'>support@catma.de.</a><div>&nbsp;</div>" .
         "</div>";
     unset($logo);
 }
@@ -206,7 +206,7 @@ elseif ($QueueID == 43) {
         "You will receive a confirmation email immediately after " .
         "submitting your inquiry. In case you do not receive a " .
         "confirmation, please send us an email at " .
-        "<a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>.".
+        "<a href='mailto:support@clarin-d.de'>support@clarin-d.de</a>.<div>&nbsp;</div>".
         "</p>";
     // FIXME
     $text['de'] = $text['en'];
@@ -220,7 +220,7 @@ elseif ($QueueID == 58) {
         "CLARIAH-DE weitergeleitet. </div><div>&nbsp;</div>" .
         "<div>Sie erhalten sofort eine Bestätigung Ihrer Anfrage per E-Mail. " .
         "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte eine E-Mail " .
-        "an <a href='mailto:support@clariah.de'>support@clariah.de</a>.";
+        "an <a href='mailto:support@clariah.de'>support@clariah.de</a>.<div>&nbsp;</div>";
     $text['en'] =
 	"<div>&nbsp;</div><div>Please do not hesitate to contact the " .
     	"<b>CLARIAH-DE Helpdesk</b> with any questions. </div>" .
@@ -229,7 +229,7 @@ elseif ($QueueID == 58) {
     	"<div>You will receive a confirmation email immediately " .
     	"after submitting your inquiry. In case you do not receive a " .
     	"confirmation, please send us an email at " .
-    	"<a href='mailto:support@clariah.de'>support@clariah.de</a>.";
+    	"<a href='mailto:support@clariah.de'>support@clariah.de</a>.<div>&nbsp;</div>";
     $logo = "/images/clariah-de.png";
 }
 $error = array (
