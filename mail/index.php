@@ -214,13 +214,16 @@ elseif ($QueueID == 43) {
 }
 elseif ($QueueID == 58) {
     $text['de'] =
-	"<div>&nbsp;</div><div>Bitte z&ouml;gern Sie nicht, sich bei allen Fragen direkt an "
-        . "den <b>CLARIAH-DE Helpdesk</b> zu wenden. </div><div>&nbsp;</div>" .
-        "<div>Ihre Anfrage wird dann umgehend an eine/-n Ansprechparter/-in in " .
-        "CLARIAH-DE weitergeleitet. </div><div>&nbsp;</div>" .
-        "<div>Sie erhalten sofort eine Bestätigung Ihrer Anfrage per E-Mail. " .
+	"<div>&nbsp;</div><div>Lieber CLARIAH-DE Nutzer,</div><div>&nbsp;</div>"
+	"<div>wir freuen uns, dass Sie sich an den <b>CLARIAH-DE Helpdesk</b> wenden, "
+	"der im Projekt CLARIN-D entwickelt wurde. "
+	"Durch den Zusammenschluss der beiden Forschungsinfrastrukturen "
+	"CLARIN-D und DARIAH-DE zu CLARIAH-DE ist dieser nun Heimat des größten "
+	"deutschen Expertennetzwerks für Forschungsdaten.</div></div><div>&nbsp;</div>"
+        "<div>Sie erhalten sofort per E-Mail eine Eingangsbestätigung Ihrer Anfrage, die "
+	"dann umgehend an eine/-n Ansprechpartner/-in in CLARIAH-DE weitergeleitet wird. "
         "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte eine E-Mail " .
-        "an <a href='mailto:support@clariah.de'>support@clariah.de</a>.<div>&nbsp;</div>";
+        "an <a href='mailto:support@clariah.de'>support@clariah.de</a>.</div><div>&nbsp;</div>";
     $text['en'] =
 	"<div>&nbsp;</div><div>Please do not hesitate to contact the " .
     	"<b>CLARIAH-DE Helpdesk</b> with any questions. </div>" .
