@@ -225,7 +225,8 @@ elseif ($QueueID == 58) {
         "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte eine E-Mail " .
         "an <a href='mailto:support@clariah.de'>support@clariah.de</a>.</div><div>&nbsp;</div>";
     $text['en'] =
-	"<div>&nbsp;</div><div>Thank you for contacting the <b>CLARIAH-DE Helpdesk</b>, "
+	"<div>&nbsp;</div><div>Dear CLARIAH-DE user,</div><div>&nbsp;</div>"
+	"<div>Thank you for contacting the <b>CLARIAH-DE Helpdesk</b>, "
 	"which was developed as part of the CLARIN-D project. The two research infrastructures "
 	"CLARIN-D and DARIAH-DE have now been united to form CLARIAH-DE. This makes our helpdesk "
 	"a home to the largest network of experts for research data in Germany." .
