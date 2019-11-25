@@ -214,21 +214,21 @@ elseif ($QueueID == 43) {
 }
 elseif ($QueueID == 58) {
     $text['de'] =
-	"<div>&nbsp;</div><div>Lieber CLARIAH-DE Nutzer,</div><div>&nbsp;</div>"
-	"<div>wir freuen uns, dass Sie sich an den <b>CLARIAH-DE Helpdesk</b> wenden, "
-	"der im Projekt CLARIN-D entwickelt wurde. "
-	"Durch den Zusammenschluss der beiden Forschungsinfrastrukturen "
-	"CLARIN-D und DARIAH-DE zu CLARIAH-DE ist dieser nun Heimat des größten "
-	"deutschen Expertennetzwerks für Forschungsdaten.</div></div><div>&nbsp;</div>"
-        "<div>Sie erhalten sofort per E-Mail eine Eingangsbestätigung Ihrer Anfrage, die "
-	"dann umgehend an eine/-n Ansprechpartner/-in in CLARIAH-DE weitergeleitet wird. "
+	"<div>&nbsp;</div><div>Lieber CLARIAH-DE Nutzer,</div><div>&nbsp;</div>" .
+	"<div>wir freuen uns, dass Sie sich an den <b>CLARIAH-DE Helpdesk</b> wenden, " .
+	"der im Projekt CLARIN-D entwickelt wurde. " .
+	"Durch den Zusammenschluss der beiden Forschungsinfrastrukturen " .
+	"CLARIN-D und DARIAH-DE zu CLARIAH-DE ist dieser nun Heimat des größten " . 
+	"deutschen Expertennetzwerks für Forschungsdaten.</div></div><div>&nbsp;</div>" .
+        "<div>Sie erhalten sofort per E-Mail eine Eingangsbestätigung Ihrer Anfrage, die " .
+	"dann umgehend an eine/-n Ansprechpartner/-in in CLARIAH-DE weitergeleitet wird. " .
         "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte eine E-Mail " .
         "an <a href='mailto:support@clariah.de'>support@clariah.de</a>.</div><div>&nbsp;</div>";
     $text['en'] =
-	"<div>&nbsp;</div><div>Dear CLARIAH-DE user,</div><div>&nbsp;</div>"
-	"<div>Thank you for contacting the <b>CLARIAH-DE Helpdesk</b>, "
-	"which was developed as part of the CLARIN-D project. The two research infrastructures "
-	"CLARIN-D and DARIAH-DE have now been united to form CLARIAH-DE. This makes our helpdesk "
+	"<div>&nbsp;</div><div>Dear CLARIAH-DE user,</div><div>&nbsp;</div>" .
+	"<div>Thank you for contacting the <b>CLARIAH-DE Helpdesk</b>, " .
+	"which was developed as part of the CLARIN-D project. The two research infrastructures " .
+	"CLARIN-D and DARIAH-DE have now been united to form CLARIAH-DE. This makes our helpdesk " .
 	"a home to the largest network of experts for research data in Germany." .
     	"<div>&nbsp;</div><div>Your inquiry will immediately be forwarded to a " .
     	"CLARIAH-DE expert. </div><div>&nbsp;</div>" .
