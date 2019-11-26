@@ -220,11 +220,14 @@ elseif ($QueueID == 58) {
 	"zu den Forschungsinfrastrukturen CLARIN-D, DARIAH-DE und CLARIAH-DE. "
 	"Durch den Zusammenschluss der geistes- und sprachwissenschaftlichen Forschungsinfrastrukturen "
 	"CLARIN-D und DARIAH-DE zu CLARIAH-DE erhalten Sie über diesen Helpdesk Zugang zu "
-	"einem umfassenden Expertennetzwerk..</div></div><div>&nbsp;</div>"
+	"einem umfassenden Expertennetzwerk.</div></div><div>&nbsp;</div>"
         "<div>Sie erhalten sofort per E-Mail eine Eingangsbestätigung Ihrer Anfrage, die "
 	"dann umgehend an eine/-n Ansprechpartner/-in in CLARIAH-DE weitergeleitet wird. "
         "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte eine E-Mail " .
-        "an <a href='mailto:support@clariah.de'>support@clariah.de</a>.</div><div>&nbsp;</div>";
+        "an <a href='mailto:support@clariah.de'>support@clariah.de</a>.</div><div>&nbsp;</div>"
+	"Bitte beachten Sie, dass die Bearbeitung von Anfragen nach der automatisierten "
+	"Eingangsbestätigung Zeit benötigt. In der Regel erhalten Sie aber innerhalb weniger "
+	"Tage eine anliegensbezogene Antwort von uns.</div><div>&nbsp;</div>";
     $text['en'] =
 	"<div>&nbsp;</div><div>Dear CLARIAH-DE user,</div><div>&nbsp;</div>"
 	"<div>Thank you for contacting the <b>CLARIAH-DE Helpdesk</b>, "
