@@ -1,12 +1,12 @@
 # clarind-helpdesk
 
 Extra scripts, forms and stuff for [CLARIN-D
-helpdesk](https://support.clarin-d.de/mail/index_test.php).
+helpdesk](https://support.clarin-d.de/mail/index.php).
 
 ## Use of the support form
 
 The official version is installed at [CLARIN-D
-helpdesk web page](https://support.clarin-d.de/mail/index_test.php). It supports
+helpdesk web page](https://support.clarin-d.de/mail/index.php). It supports
 following GET or POST parametres:
 
 * `QueueID`, needs to be the *numeric* ID of the queue in ticketing system. If
@@ -23,7 +23,7 @@ for sorting.
 
 ### Wordpress plugin
 
-Our colleagues at DARIAH-ERIC have a [wordpress form for CLARIN-D helpdesk](https://github.com/DARIAH-ERIC/contact-helpdesk)
+Our colleagues at DARIAH-ERIC have develpoed a [wordpress form for the CLARIN-D helpdesk](https://github.com/DARIAH-ERIC/contact-helpdesk)
 
 ## Installation of support form
 
