@@ -153,8 +153,8 @@ $exmaopts = array(
 );
 // text to be shown at the beginning
 $text = array (
-    "de" => "<div>&nbsp;</div><div>Bitte z&ouml;gern Sie nicht, sich bei allen Fragen direkt an "
-    . "den <b>CLARIN-D Helpdesk</b> zu wenden. </div><div>&nbsp;</div>" .
+    "de" => "<div>&nbsp;</div><div>Bitte z&ouml;gern Sie nicht, sich bei allen Fragen direkt an " .
+    "den <b>CLARIN-D Helpdesk</b> zu wenden. </div><div>&nbsp;</div>" .
     "<div>Ihre Anfrage wird dann umgehend an eine/-n Ansprechparter/-in in " .
     "CLARIN-D weitergeleitet. </div><div>&nbsp;</div>" .
     "<div>Sie erhalten sofort eine Bestätigung Ihrer Anfrage per E-Mail. " .
@@ -172,8 +172,8 @@ $text = array (
 $logo = "/images/clarind.png";
 if ($QueueID == 40) {
     $text['de'] =
-        "<div>&nbsp;</div><div>Bitte zögern Sie nicht, sich bei allen Fragen direkt an den CATMA"
-        . "Helpdesk zu wenden.</div>" .
+        "<div>&nbsp;</div><div>Bitte zögern Sie nicht, sich bei allen Fragen direkt an den CATMA" .
+        "Helpdesk zu wenden.</div>" .
         "<div>Ihre Anfrage wird dann umgehend an eine/-n Ansprechparter/-in " .
         "bei CATMA weitergeleitet.</div>" .
         "<div>Sie erhalten sofort eine Bestätigung Ihrer Anfrage per E-Mail. " .
@@ -214,22 +214,22 @@ elseif ($QueueID == 43) {
 }
 elseif ($QueueID == 58) {
     $text['de'] =
-	"<div>&nbsp;</div><div>Liebe Nutzerin, lieber Nutzer von CLARIAH-DE,</div><div>&nbsp;</div>"
-	"<div>wir freuen uns, dass Sie sich an den <b>CLARIAH-DE Helpdesk</b> wenden. "
-	"Dieser Helpdesk unterstützt im Rahmen von CLARIAH-DE bei Fragen und Problemen "
-	"zu den Forschungsinfrastrukturen CLARIN-D, DARIAH-DE und CLARIAH-DE. "
-	"Durch den Zusammenschluss der geistes- und sprachwissenschaftlichen Forschungsinfrastrukturen "
-	"CLARIN-D und DARIAH-DE zu CLARIAH-DE erhalten Sie über diesen Helpdesk Zugang zu "
-	"einem umfassenden Expertennetzwerk.</div></div><div>&nbsp;</div>"
-        "<div>Sie erhalten sofort per E-Mail eine Eingangsbestätigung Ihrer Anfrage, die "
-	"dann umgehend an eine/-n Ansprechpartner/-in in CLARIAH-DE weitergeleitet wird. "
+	"<div>&nbsp;</div><div>Liebe Nutzerin, lieber Nutzer von CLARIAH-DE,</div><div>&nbsp;</div>" .
+	"<div>wir freuen uns, dass Sie sich an den <b>CLARIAH-DE Helpdesk</b> wenden. " .
+	"Dieser Helpdesk unterstützt im Rahmen von CLARIAH-DE bei Fragen und Problemen " .
+	"zu den Forschungsinfrastrukturen CLARIN-D, DARIAH-DE und CLARIAH-DE. " .
+	"Durch den Zusammenschluss der geistes- und sprachwissenschaftlichen Forschungsinfrastrukturen " .
+	"CLARIN-D und DARIAH-DE zu CLARIAH-DE erhalten Sie über diesen Helpdesk Zugang zu " .
+	"einem umfassenden Expertennetzwerk.</div></div><div>&nbsp;</div>" .
+        "<div>Sie erhalten sofort per E-Mail eine Eingangsbestätigung Ihrer Anfrage, die " .
+	"dann umgehend an eine/-n Ansprechpartner/-in in CLARIAH-DE weitergeleitet wird. " .
         "Sollten Sie keine Bestätigung erhalten, schreiben Sie bitte eine E-Mail " .
         "an <a href='mailto:support@clariah.de'>support@clariah.de</a>.</div><div>&nbsp;</div>";
     $text['en'] =
-	"<div>&nbsp;</div><div>Dear CLARIAH-DE user,</div><div>&nbsp;</div>"
-	"<div>Thank you for contacting the <b>CLARIAH-DE Helpdesk</b>, "
-	"which was developed as part of the CLARIN-D project. The two research infrastructures "
-	"CLARIN-D and DARIAH-DE have now been united to form CLARIAH-DE. This makes our helpdesk "
+	"<div>&nbsp;</div><div>Dear CLARIAH-DE user,</div><div>&nbsp;</div>" .
+	"<div>Thank you for contacting the <b>CLARIAH-DE Helpdesk</b>, " .
+	"which was developed as part of the CLARIN-D project. The two research infrastructures " .
+	"CLARIN-D and DARIAH-DE have now been united to form CLARIAH-DE. This makes our helpdesk " .
 	"a home to the largest network of experts for research data in Germany." .
     	"<div>&nbsp;</div><div>Your inquiry will immediately be forwarded to a " .
     	"CLARIAH-DE expert. </div><div>&nbsp;</div>" .
